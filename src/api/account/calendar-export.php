@@ -44,6 +44,7 @@ foreach ($iCalAssignments as $event) {
     $dtStart = new \DateTime($event['projects_dates_use_start'], $dtz);
     $dtEnd = new \DateTime($event['projects_dates_use_end'], $dtz);
     $isMultiDay = $dtStart->format('Y-m-d') !== $dtEnd->format('Y-m-d');
+    $uri = new \Eluceo\iCal\Domain\ValueObject\Uri("https://dash.adam-rms.com/project/?id=" . $event['projects_id'])
     $vEvent = new \Eluceo\iCal\Component\Event();
     $vEvent->setUseTimezone(!$isMultiDay);
     $vEvent
@@ -53,7 +54,8 @@ foreach ($iCalAssignments as $event) {
         ->setSummary($event['projects_name'] . ($event['clients_name'] ? " (" . $event['clients_name'] . ")" : ""))
         ->setCategories(['events', 'AdamRMS'])
         ->setLocation($event['locations_name'] . "\n" . $event['locations_address'], $event['locations_name'] . "\n" . $event['locations_address'])
-        ->setDescription('Role: ' . $event['crewAssignments_role'] . "\n" . "Event Status: " . $event['projectsStatuses_name'] . "\n" . "Description: ". $event['projects_description'] . "\n" . "Project Manager: " . $event['pm_name1'] . " " . $event['pm_name2'])
+	->setDescription('Role: ' . $event['crewAssignments_role'] . "\n" . "Event Status: " . $event['projectsStatuses_name'] . "\n" . "Description: ". $event['projects_description'] . "\n" . "Project Manager: " . $event['pm_name1'] . " " . $event['pm_name2'] . "\n")
+	->setUrl($uri)
         ->setMsBusyStatus("FREE")
     ;
     $vCalendar->addComponent($vEvent);
