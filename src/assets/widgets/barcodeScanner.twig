@@ -128,19 +128,17 @@ var BARCODEFORMATS = [
 						</tr>
 					</thead>
 					<tbody>
-						{% for  %}
-							<tr class="showHideFilter" data-filter="categoryFilter">
-								<td>{{}}</td>
-							</tr>
-						{% endfor %}
 					</tbody>
-				</div>
+				</table>
 			</div>
 		</div>
 	</div>
 </div>
 <script>
 	(function () {
+var refreshBoard = (function () {
+
+})();
 var suffix = {{ suffix|json_encode|raw }};
 var callbackFn = (function () {
 // scannerCallback is documented as a function name string.
@@ -292,5 +290,7 @@ if (document.visibilityState === 'hidden') {
 cleanupScanner();
 }
 });
+// Add refresh for deduplicated asset list
+$('#').
 })();
 </script>
